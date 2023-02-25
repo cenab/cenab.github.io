@@ -211,7 +211,7 @@ a:link {
 
 /* visited link */
 a:visited {
-  color: #fbd13c;
+  color: #333;
 }
 
 /* mouse over link */
@@ -221,5 +221,5 @@ a:hover {
 
 /* selected link */
 a:active {
-  color:  #fbc400;
+  color:  #333;
 }
