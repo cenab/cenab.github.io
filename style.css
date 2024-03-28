@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     margin: 0;
-    padding: 0;
+    padding: 20px;
     font-family: 'Roboto Mono', sans-serif;
     background-color: #fff5d1;
 }
@@ -9,7 +9,7 @@ body {
 .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 a:link, a:visited {
@@ -23,7 +23,7 @@ a:hover, a:active {
 /* Header Styles */
 header {
     background-color: #fff5d1;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +46,7 @@ header img {
 
 .social-links {
     display: flex;
-    gap: 10px;
+    gap: 50px;
     justify-content: center;
     align-items: center;
 }
@@ -61,16 +61,18 @@ header img {
 
 /* Main Content Styles */
 main {
-    padding: 20px 0;
+    /* padding: 20px 0; */
 }
 
 main h2 {
     font-size: 30px;
     color: #000000;
     margin: 40px 0 20px;
+    text-align: center;
     border-bottom: 1px solid #333;
 }
 
+/* Main Content Paragraph Styles */
 main p {
     font-size: 20px;
     color: #000000;
@@ -81,29 +83,36 @@ main p {
 
 /* Project Styles */
 .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    margin: 0 auto; /* Center the projects container */
+    padding: 0; /* Remove default padding */
+    list-style-type: none; /* Remove bullet points */
 }
 
 .project {
-    width: 300px;
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
+    display: inline-block; /* Display project items inline for center alignment */
+    margin: 10px; /* Adjust spacing around project items as needed */
+    vertical-align: top; /* Align items at their top edge */
 }
 
-.project h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
+.project a {
+    text-decoration: none; /* Optional: Remove underline from links */
+    color: inherit; /* Inherit text color from parent for consistency */
 }
 
-.project p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 20px;
+.project h3, .project p {
+    margin: 10px 0; /* Add consistent spacing around headings and paragraphs within projects */
+}
+
+.projects ul {
+    list-style-type: none; /* Remove bullet points from the list */
+    padding-left: 0; /* Remove default padding from the list */
+    margin-left: 10; /* Optional: Remove default margin from the list */
+}
+
+.research ul {
+    list-style-type: none; /* Remove bullet points from the list */
+    padding-left: 0; /* Remove default padding from the list */
+    margin-left: 10; /* Optional: Remove default margin from the list */
 }
 
 /* Responsive Design Adjustments */
@@ -116,3 +125,26 @@ main p {
         margin-top: 20px;
     }
 }
+
+header img.profile-picture {
+    width: 175px; /* Adjust as needed */
+    height: 175px; /* Adjust as needed */
+    object-fit: cover; /* Cover the container with the image without distorting */
+    object-position: center; /* Adjust as needed to focus on a particular part of the image */
+    border-radius: 50%; /* Maintain the round shape */
+}
+
+footer {
+    background-color: #fff5d1; /* Light grey background */
+    text-align: center; /* Center the text */
+    padding: 20px 0; /* Add some padding for space above and below the text */
+    margin-top: 40px; /* Add some space between the main content and the footer */
+}
+
+.footer-content p {
+    margin: 0; /* Remove default paragraph margin to avoid extra space */
+    color: #333; /* Dark grey text color */
+}
+
+
+
