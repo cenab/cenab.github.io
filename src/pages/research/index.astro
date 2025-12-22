@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const researchEntries = (await getCollection('research')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title="research" description="Research projects by Batu Bora.">
+  <h1>research</h1>
+  <p>Selected research work and writeups.</p>
+  <h2 class="section-title">in progress research</h2>
+  <ul>
+    <li>meta ai features network-level audit.</li>
+    <li>
+      llm agent for feasibility and acceptability of sage (social ai for geriatric engagement): a single-arm pilot
+      study of a turkish llm-supported voice companion for older adults living alone.
+    </li>
+    <li>llm history rag research: creating history rag definitions.</li>
+  </ul>
+
+  <h2 class="section-title">published research</h2>
+  <div class="research-list">
+    {
+      researchEntries.map((entry) => (
+        <div class="research-card">
+          {entry.data.image && (
+            <a class="research-media" href={`/research/${entry.id}/`}>
+              <img src={entry.data.image} alt={`${entry.data.title} preview`} loading="lazy" />
+            </a>
+          )}
+          <div class="research-info">
+            <p><a href={`/research/${entry.id}/`}>{entry.data.title}</a></p>
+            <p>{entry.data.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</BaseLayout>

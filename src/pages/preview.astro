@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+type AssetItem = { name: string; url: string };
+
+type AssetGroups = Record<string, Record<string, AssetItem[]>>;
+
+const assets = import.meta.glob('../assets/**/*.{gif,png,jpg,jpeg}', {
+  eager: true,
+  import: 'default',
+});
+
+const groups: AssetGroups = {};
+
+Object.entries(assets)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .forEach(([path, asset]) => {
+    const match = path.match(/assets\/([^/]+)\/([^/]+)\//);
+    if (!match) return;
+    const [, category, collection] = match;
+    const url = typeof asset === 'string' ? asset : (asset as { src?: string })?.src;
+    if (!url) return;
+    const name = path.split('/').pop() ?? 'asset';
+
+    groups[category] ??= {};
+    groups[category][collection] ??= [];
+    groups[category][collection].push({ name, url });
+  });
+
+const categoryOrder = ['seasons', 'special'];
+const collectionOrder: Record<string, string[]> = {
+  seasons: ['spring', 'summer', 'fall', 'winter'],
+  special: ['christmas', 'thanksgiving', 'halloween', 'new-year'],
+};
+---
+
+<BaseLayout title="preview" description="Preview seasonal and special assets.">
+  <h1>asset preview</h1>
+  <p>Check alignment and sizing across all season and special images.</p>
+
+  {
+    categoryOrder.map((category) => (
+      <section>
+        <h2 class="section-title">{category}</h2>
+        {Object.entries(groups[category] ?? {})
+          .sort(([a], [b]) => {
+            const order = collectionOrder[category] ?? [];
+            return (order.indexOf(a) === -1 ? 99 : order.indexOf(a)) -
+              (order.indexOf(b) === -1 ? 99 : order.indexOf(b));
+          })
+          .map(([collection, items]) => (
+            <div>
+              <p class="small">{collection}</p>
+              <div class="image-grid">
+                {items.map((item) => (
+                  <div class="image-card">
+                    <img src={item.url} alt={item.name} loading="lazy" />
+                    <p class="small">{item.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+      </section>
+    ))
+  }
+</BaseLayout>

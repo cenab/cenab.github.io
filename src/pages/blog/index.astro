@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+---
+
+<BaseLayout title="blog" description="Blog posts by Batu Bora.">
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" href="/blog.rss" />
+    <link rel="alternate" type="application/json" href="/blog.json" />
+  </Fragment>
+
+  <div class="list-header">
+    <h1>blog</h1>
+    <div>
+      <a href="/blog.rss">rss</a>
+      <a href="/blog.json">json</a>
+    </div>
+  </div>
+
+  <div class="posts">
+    {
+      posts.map((post) => (
+        <div class="post-info">
+          <div class="post-title">
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <p>{formatDate(post.data.pubDate)}</p>
+          </div>
+          <p>{post.data.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</BaseLayout>

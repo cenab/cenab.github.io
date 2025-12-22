@@ -1,0 +1,305 @@
+:root {
+  --bg: #000000;
+  --fg: #f2f2f2;
+  --muted: #a6a6a6;
+  --accent: #ff5ad5;
+  --maxw: 820px;
+  --border: #1a1a1a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Space Mono", monospace;
+  line-height: 1.65;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.topnav {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 10;
+}
+
+.topnav nav {
+  display: flex;
+  gap: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.topnav a {
+  color: var(--fg);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.topnav a:hover {
+  color: var(--accent);
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 120px 20px 80px;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+}
+
+.hero-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #060606;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 1px #0d0d0d;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: lowercase;
+}
+
+h1 {
+  margin: 6px 0 0;
+  font-family: "VT323", monospace;
+  font-size: clamp(42px, 7vw, 68px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+.lede {
+  margin: 0;
+  font-size: 18px;
+  max-width: 60ch;
+}
+
+.meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.divider {
+  color: var(--muted);
+}
+
+.section {
+  margin-top: 80px;
+}
+
+h2 {
+  margin: 0 0 18px;
+  font-family: "VT323", monospace;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.small {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.post-list {
+  display: grid;
+  gap: 26px;
+  margin-top: 18px;
+}
+
+.post {
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.post-date {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.post h3 {
+  margin: 8px 0 10px;
+  font-size: 20px;
+}
+
+.post-excerpt {
+  margin: 0;
+  color: var(--muted);
+}
+
+.post-header {
+  margin-top: 8px;
+}
+
+.post-meta {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.post-body {
+  margin-top: 24px;
+  max-width: 68ch;
+}
+
+.post-body p {
+  margin: 16px 0;
+}
+
+.post-body h2 {
+  margin-top: 32px;
+}
+
+.post-body ul {
+  padding-left: 18px;
+}
+
+.post-body li {
+  margin: 8px 0;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.list li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #5a5a5a;
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  padding: 30px 0 24px;
+  margin-top: 80px;
+}
+
+@media (max-width: 720px) {
+  .topnav {
+    top: 12px;
+    right: 12px;
+  }
+
+  .topnav nav {
+    gap: 10px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .wrap {
+    padding: 100px 18px 70px;
+  }
+
+  h1 {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

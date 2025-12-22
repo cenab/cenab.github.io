@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'Batu Bora',
+  description = "Batu Bora's notes on software, systems, and shipping practical things.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon_io/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon_io/site.webmanifest" />
+    <!-- Cloudflare Web Analytics -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token":"e3c97bb1166f45df870326929abef329"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="main">
+      <div>
+        <nav class="nav">
+          <a href="/">home</a>
+          <a href="/blog">blog</a>
+          <a href="/research">research</a>
+          <a href="/contact">contact</a>
+        </nav>
+
+        <div>
+          <slot />
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2025 Batu Bora.</p>
+      </footer>
+    </div>
+    <script src="/oneko.js" data-cat="/oneko.gif" data-persist-position="false"></script>
+  </body>
+</html>

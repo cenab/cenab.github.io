@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Notes on Monte Carlo Tree Search for Go.">
+  <title>Monte Carlo Tree Search for Go - Batu Bora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header class="topnav">
+    <nav>
+      <a href="/">home</a>
+      <a href="/blog/">blog</a>
+      <a href="/#projects">projects</a>
+      <a href="/#contact">contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">blog</p>
+      <h1>monte carlo tree search for go</h1>
+      <p class="post-meta">2024-07-18</p>
+      <a class="back-link" href="/blog/">back to blog</a>
+    </section>
+
+    <article class="post-body">
+      <p>I built a lightweight Go engine using Monte Carlo Tree Search. The core loop is simple: selection, expansion, simulation, backpropagation.</p>
+      <p>The hard part is speed. Your engine only feels smart if the rollout loop is fast and steady under pressure.</p>
+      <h2>what helped the most</h2>
+      <ul>
+        <li>Keep the board representation compact and cache friendly.</li>
+        <li>Use quick rollout policies over perfect play.</li>
+        <li>Cap branching early so the tree stays shallow.</li>
+      </ul>
+      <p>Once the basics work, the fun begins: tune exploration, add priors, and test against real opponents.</p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Batu Bora. All rights reserved.</p>
+  </footer>
+</body>
+</html>

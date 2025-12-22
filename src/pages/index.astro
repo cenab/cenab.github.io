@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const seasonAssets = import.meta.glob('../assets/seasons/**/*.{gif,png,jpg,jpeg}', {
+  eager: true,
+  import: 'default',
+});
+const specialAssets = import.meta.glob('../assets/special/**/*.{gif,png,jpg,jpeg}', {
+  eager: true,
+  import: 'default',
+});
+
+const groupByFolder = (assets: Record<string, unknown>, root: string) => {
+  const matcher = new RegExp(`${root}/([^/]+)/`);
+  const groups: Record<string, string[]> = {};
+
+  Object.entries(assets)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .forEach(([path, asset]) => {
+      const match = path.match(matcher);
+      if (!match) return;
+      const key = match[1];
+      const url = typeof asset === 'string' ? asset : (asset as { src?: string })?.src;
+      if (!url) return;
+      groups[key] ??= [];
+      groups[key].push(url);
+    });
+
+  return groups;
+};
+
+const seasonGroups = groupByFolder(seasonAssets, 'seasons');
+const specialGroups = groupByFolder(specialAssets, 'special');
+---
+
+<BaseLayout title="hi, i'm batu">
+  <h1>hi, i'm batu</h1>
+  <p>i build software and study how systems behave under real-world conditions.</p>
+  <p>at userful, i've shipped full-stack, low-level, integration, and ai work.</p>
+  <p>i publish research at university on cybersecurity, machine learning, ai, and llm.</p>
+  <p class="small">focus areas: software security, network traffic analysis, adversarial AI, machine learning, software architecture, low-level development.</p>
+
+  
+  <br>
+  <p class="activity-status" style="margin-top: 1rem;">
+    Currently working on <a href="https://github.com/cenab/omen">omen</a>.
+  </p>
+  <br>
+
+  <div class="season-gallery" id="season-gallery"></div>
+  <p class="small quote season-quote" id="season-label">loading season...</p>
+
+  <script is:inline define:vars={{ seasonGroups, specialGroups }}>
+    const quotes = {
+      seasons: {
+        winter: [
+          'winter asks for patience and clear thinking.',
+          'cold air, warm focus.',
+          'quiet seasons make strong plans.',
+          'snow days, deep work.',
+          'winter is for backups and hot coffee.',
+          'slow down, tighten the screws.',
+          'stillness makes room for sharp ideas.',
+          'ship small, stay warm.',
+        ],
+        spring: [
+          'spring is for fresh starts and clean diffs.',
+          'new growth, new experiments.',
+          'small blooms become real projects.',
+          'open the windows, open the roadmap.',
+          'ship the seed, not the forest.',
+          'spring is soft resets and new habits.',
+          'light days, lighter builds.',
+          'time to refactor and replant.',
+        ],
+        summer: [
+          'summer favors momentum.',
+          'long days, quick iterations.',
+          'ship while the energy is high.',
+          'sunny builds and clear paths.',
+          'summer is for bold releases.',
+          'keep it simple, keep it moving.',
+          'hot takes, cool fixes.',
+          'make the progress visible.',
+        ],
+        fall: [
+          'fall is for focus and finishing.',
+          'harvest the work you started.',
+          'cool air, cleaner code.',
+          'fall trims the roadmap.',
+          'polish the edges before winter.',
+          'close loops and ship the update.',
+          'shorter days, tighter scope.',
+          'wrap it up with care.',
+        ],
+      },
+      specials: {
+        'new-year': [
+          'new year, new baseline.',
+          'fresh calendar, fresh commits.',
+          'start small, win weekly.',
+          'make the plan, ship the plan.',
+          'new year, cleaner defaults.',
+          'reset, then move.',
+          'clear goals, quiet noise.',
+          'year zero, v1.',
+        ],
+        christmas: [
+          'quiet builds and warm light.',
+          'ship gifts, not surprises.',
+          'keep the backlog cozy.',
+          'soft landings and kind releases.',
+          'time to refactor and rest.',
+          'light up the logs.',
+          'calm systems, calm mind.',
+          'good cheer, stable deploys.',
+        ],
+        thanksgiving: [
+          'grateful for uptime.',
+          'thankful for small wins.',
+          'ship, then share.',
+          'pause, appreciate, repeat.',
+          'gratitude keeps the roadmap sane.',
+          'good work, good people.',
+          'thanksgiving is for clean closes.',
+          'steady progress, thankful hearts.',
+        ],
+        halloween: [
+          'test your ghosts in staging.',
+          'spooky bugs, clean fixes.',
+          'ship the scare, not the break.',
+          'haunted logs, happy patches.',
+          'keep the monsters in QA.',
+          'midnight deploys, careful eyes.',
+          'trick the bugs, treat the users.',
+          'no surprises after dark.',
+        ],
+      },
+    };
+
+    const getSeason = (month) => {
+      if (month === 12 || month <= 2) return 'winter';
+      if (month <= 5) return 'spring';
+      if (month <= 8) return 'summer';
+      return 'fall';
+    };
+
+    const getSpecial = (month, day) => {
+      if ((month === 12 && day >= 30) || (month === 1 && day <= 2)) {
+        return { key: 'new-year', label: 'new year' };
+      }
+      if (month === 12 && day >= 20 && day <= 26) {
+        return { key: 'christmas', label: 'christmas' };
+      }
+      if (month === 11 && day >= 20 && day <= 30) {
+        return { key: 'thanksgiving', label: 'thanksgiving' };
+      }
+      if (month === 10 && day >= 25) {
+        return { key: 'halloween', label: 'halloween' };
+      }
+      return null;
+    };
+
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const special = getSpecial(month, day);
+    const season = getSeason(month);
+    const quotePool = special ? quotes.specials[special.key] : quotes.seasons[season];
+    const quote = quotePool[Math.floor(Math.random() * quotePool.length)];
+    const images = special
+      ? (specialGroups[special.key] || [])
+      : (seasonGroups[season] || []);
+    const image = images.length ? images[Math.floor(Math.random() * images.length)] : null;
+
+    const labelEl = document.getElementById('season-label');
+    if (labelEl) labelEl.textContent = quote;
+
+    const gallery = document.getElementById('season-gallery');
+    if (gallery) {
+      gallery.innerHTML = '';
+      if (image) {
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = quote;
+        img.loading = 'lazy';
+        gallery.appendChild(img);
+      }
+    }
+
+    const statusEl = document.querySelector('.activity-status');
+    if (statusEl) {
+      fetch('https://api.github.com/users/cenab/repos?sort=pushed&per_page=1')
+        .then((response) => (response.ok ? response.json() : Promise.reject(response)))
+        .then((repos) => {
+          const repo = Array.isArray(repos) ? repos[0] : null;
+          if (!repo) return;
+          const link = document.createElement('a');
+          link.href = repo.html_url;
+          link.textContent = repo.name;
+          statusEl.textContent = 'Currently working on ';
+          statusEl.appendChild(link);
+          statusEl.appendChild(document.createTextNode('.'));
+        })
+        .catch(() => {});
+    }
+  </script>
+</BaseLayout>
