@@ -10,8 +10,8 @@
   const nekoEl = document.createElement("div");
   let persistPosition = true;
 
-  let nekoPosX = 16;
-  let nekoPosY = 16;
+  let nekoPosX = 48;
+  let nekoPosY = 48;
   
   let mousePosX = 0;
   let mousePosY = 0;
@@ -123,7 +123,6 @@
     nekoEl.style.imageRendering = "pixelated";
     nekoEl.style.left = `${nekoPosX - 16}px`;
     nekoEl.style.top = `${nekoPosY - 16}px`;
-    nekoEl.style.zIndex = 2147483647;
 
     nekoEl.style.backgroundImage = `url(${nekoFile})`;
     

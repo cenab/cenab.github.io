@@ -12,6 +12,11 @@
   font-family: Pretendard, apple-system, system-ui, "Helvetica", "Arial", sans-serif;
 }
 
+html,
+body {
+  background-color: var(--bg-dark-color);
+}
+
 .nav {
   margin-top: 2rem;
   display: flex;
@@ -25,7 +30,6 @@ body {
   padding: 0 1rem 0rem 1rem;
   min-height: 100vh;
   color: var(--text-dark-color);
-  background-color: var(--bg-dark-color);
 }
 
 .main {
